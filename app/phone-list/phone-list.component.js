@@ -1,9 +1,13 @@
+"use strict";
 var PhoneListController = (function () {
-    function PhoneListController(Phone) {
-        this.phones = Phone.query();
+    function PhoneListController(phone) {
+        var _this = this;
+        phone.query().subscribe(function (phones) {
+            _this.phones = phones;
+        });
         this.orderProp = 'age';
     }
-    PhoneListController.$inject = ['Phone'];
+    PhoneListController.$inject = ['phone'];
     return PhoneListController;
 }());
 angular.
