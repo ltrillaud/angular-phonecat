@@ -1,15 +1,15 @@
 "use strict";
-var upgrade_1 = require('@angular/upgrade');
+var common_1 = require('@angular/common');
+var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var http_1 = require('@angular/http');
+var router_deprecated_1 = require('@angular/router-deprecated');
 var phone_service_1 = require('./core/phone/phone.service');
-var phone_list_component_1 = require('./phone-list/phone-list.component');
-var phone_detail_component_1 = require('./phone-detail/phone-detail.component');
-var upgradeAdapter = new upgrade_1.UpgradeAdapter();
-upgradeAdapter.addProvider(http_1.HTTP_PROVIDERS);
-upgradeAdapter.addProvider(phone_service_1.Phone);
-upgradeAdapter.bootstrap(document.documentElement, ['phonecatApp']);
-upgradeAdapter.upgradeNg1Provider('$routeParams');
-angular.module('core.phone').factory('phone', upgradeAdapter.downgradeNg2Provider(phone_service_1.Phone));
-angular.module('phoneList').directive('phoneList', upgradeAdapter.downgradeNg2Component(phone_list_component_1.PhoneListComponent));
-angular.module('phoneDetail').directive('phoneDetail', upgradeAdapter.downgradeNg2Component(phone_detail_component_1.PhoneDetailComponent));
+var app_component_1 = require('./app.component');
+platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
+    http_1.HTTP_PROVIDERS,
+    router_deprecated_1.ROUTER_PROVIDERS,
+    { provide: common_1.APP_BASE_HREF, useValue: '!' },
+    { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
+    phone_service_1.Phone
+]);
 //# sourceMappingURL=main.js.map

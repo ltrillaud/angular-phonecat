@@ -8,16 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var core_1 = require('@angular/core');
+var router_deprecated_1 = require('@angular/router-deprecated');
 var phone_service_1 = require('../core/phone/phone.service');
 var checkmark_pipe_1 = require('../core/checkmark/checkmark.pipe');
 var PhoneDetailComponent = (function () {
-    function PhoneDetailComponent($routeParams, phone) {
+    function PhoneDetailComponent(routeParams, phone) {
         var _this = this;
-        phone.get($routeParams['phoneId']).subscribe(function (phone) {
+        phone.get(routeParams.get('phoneId')).subscribe(function (phone) {
             _this.phone = phone;
             _this.setImage(phone.images[0]);
         });
@@ -30,9 +28,8 @@ var PhoneDetailComponent = (function () {
             selector: 'phone-detail',
             templateUrl: 'phone-detail/phone-detail.template.html',
             pipes: [checkmark_pipe_1.CheckmarkPipe]
-        }),
-        __param(0, core_1.Inject('$routeParams')), 
-        __metadata('design:paramtypes', [Object, phone_service_1.Phone])
+        }), 
+        __metadata('design:paramtypes', [router_deprecated_1.RouteParams, phone_service_1.Phone])
     ], PhoneDetailComponent);
     return PhoneDetailComponent;
 }());
