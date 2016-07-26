@@ -1,22 +1,24 @@
+import { Component, Inject } from '@angular/core';
 import { Phone, PhoneData } from '../core/phone/phone.service';
-class PhoneDetailController {
+import { CheckmarkPipe } from '../core/checkmark/checkmark.pipe';
+
+@Component({
+  selector: 'phone-detail',
+  templateUrl: 'phone-detail/phone-detail.template.html',
+  pipes: [ CheckmarkPipe ]
+})
+export class PhoneDetailComponent {
   phone: PhoneData;
   mainImageUrl: string;
-  static $inject = ['$routeParams', 'phone'];
-  constructor($routeParams: angular.route.IRouteParamsService, phone: Phone) {
-    let phoneId = $routeParams['phoneId'];
-    phone.get(phoneId).subscribe(data => {
-      this.phone = data;
-      this.setImage(data.images[0]);
+  constructor(@Inject('$routeParams')
+                $routeParams: angular.route.IRouteParamsService,
+              phone: Phone) {
+    phone.get($routeParams['phoneId']).subscribe(phone => {
+      this.phone = phone;
+      this.setImage(phone.images[0]);
     });
   }
   setImage(imageUrl: string) {
     this.mainImageUrl = imageUrl;
   }
 }
-angular.
-  module('phoneDetail').
-  component('phoneDetail', {
-    templateUrl: 'phone-detail/phone-detail.template.html',
-    controller: PhoneDetailController
-  });
